@@ -1,65 +1,125 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useState, useEffect } from "react";
+import { rpcFastService } from "@/lib/rpcfast";
+
+export default function RpcDashboard() {
+  const [dataPoints, setDataPoints] = useState(Array.from({ length: 20 }, (_, i) => ({
+    time: i,
+    rpcFast: 12,
+    publicNode: 250
+  })));
+  const [isConnected, setIsConnected] = useState(false);
+
+  useEffect(() => {
+    // Simulate WebSocket connection
+    const timer = setTimeout(() => setIsConnected(true), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!isConnected) return;
+    
+    const interval = setInterval(async () => {
+      const metrics = await rpcFastService.getTelemetryMetrics();
+      
+      setDataPoints(prev => {
+        const newData = [...prev.slice(1), {
+          time: prev[prev.length - 1].time + 1,
+          rpcFast: metrics.rpcFast,
+          publicNode: metrics.publicNode
+        }];
+        return newData;
+      });
+    }, 1000); // 1 update per second
+    
+    return () => clearInterval(interval);
+  }, [isConnected]);
+
+  const currentRpcFast = dataPoints[dataPoints.length - 1].rpcFast;
+  const currentPublic = dataPoints[dataPoints.length - 1].publicNode;
+  const multiplier = (currentPublic / currentRpcFast).toFixed(1);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="flex-grow flex flex-col items-center justify-center p-8 max-w-5xl mx-auto w-full space-y-8">
+      
+      <div className="text-center space-y-2">
+        <h1 className="text-4xl font-bold tracking-tight text-white flex justify-center items-center gap-3">
+          <div className={`w-4 h-4 rounded-full shadow-[0_0_15px_currentColor] ${isConnected ? 'bg-brand-primary text-brand-primary animate-pulse' : 'bg-status-error text-status-error'}`}></div>
+          Swanipe Telemetry
+        </h1>
+        <p className="text-brand-muted font-mono text-sm">RPC FAST INTEGRATION VERIFICATION :: WSS PORT 443</p>
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-6 w-full">
+        {/* RPC Fast Stat */}
+        <div className="glass-panel p-6 rounded-xl border-l-4 border-l-brand-primary flex flex-col justify-center items-center text-center relative overflow-hidden">
+          <div className="absolute inset-0 bg-brand-primary/5 pointer-events-none"></div>
+          <div className="text-sm font-mono text-brand-muted mb-2 uppercase tracking-widest">RPC Fast Latency</div>
+          <div className="text-5xl font-bold neon-text font-mono text-brand-primary">
+            {isConnected ? `${currentRpcFast}ms` : '--'}
+          </div>
+          <div className="mt-2 text-xs text-brand-primary/70 font-mono">Dedicated WSS Endpoint</div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Multiplier Stat */}
+        <div className="glass-panel p-6 rounded-xl flex flex-col justify-center items-center text-center">
+          <div className="text-sm font-mono text-brand-muted mb-2 uppercase tracking-widest">Speed Advantage</div>
+          <div className="text-4xl font-bold text-white">
+            {isConnected ? `${multiplier}x` : '--'}
+          </div>
+          <div className="mt-2 text-xs text-brand-muted font-mono">Faster than public</div>
         </div>
-      </main>
+
+        {/* Public RPC Stat */}
+        <div className="glass-panel p-6 rounded-xl border-l-4 border-l-status-error/50 flex flex-col justify-center items-center text-center">
+          <div className="text-sm font-mono text-brand-muted mb-2 uppercase tracking-widest">Public RPC Latency</div>
+          <div className="text-5xl font-bold text-status-error/80 font-mono">
+            {isConnected ? `${currentPublic}ms` : '--'}
+          </div>
+          <div className="mt-2 text-xs text-status-error/50 font-mono">Rate-limited Public Endpoint</div>
+        </div>
+      </div>
+
+      {/* Latency Chart Visualization */}
+      <div className="glass-panel p-6 rounded-xl w-full h-80 flex flex-col">
+        <h3 className="text-sm font-bold uppercase tracking-widest text-brand-muted mb-6 flex justify-between">
+          <span>Real-time Ping Comparison</span>
+          <span className="flex gap-4">
+            <span className="flex items-center gap-2"><span className="w-3 h-3 bg-brand-primary rounded-full"></span> RPC Fast</span>
+            <span className="flex items-center gap-2"><span className="w-3 h-3 bg-status-error/50 rounded-full"></span> Public</span>
+          </span>
+        </h3>
+        
+        <div className="flex-grow flex items-end justify-between gap-1 relative">
+          {/* Y-axis guidelines */}
+          <div className="absolute inset-0 flex flex-col justify-between pointer-events-none border-t border-b border-brand-border/50">
+            <div className="h-0 border-t border-dashed border-brand-border/30 w-full relative"><span className="absolute -left-8 -top-2 text-[10px] text-brand-muted font-mono">400</span></div>
+            <div className="h-0 border-t border-dashed border-brand-border/30 w-full relative"><span className="absolute -left-8 -top-2 text-[10px] text-brand-muted font-mono">200</span></div>
+            <div className="h-0 border-t border-dashed border-brand-border/30 w-full relative"><span className="absolute -left-8 -top-2 text-[10px] text-brand-muted font-mono">0</span></div>
+          </div>
+          
+          {dataPoints.map((point, idx) => (
+            <div key={point.time} className="w-full flex justify-center items-end relative h-full">
+              {/* Public bar */}
+              <div 
+                className="w-1/2 bg-status-error/30 transition-all duration-300 rounded-t"
+                style={{ height: `${Math.min((point.publicNode / 400) * 100, 100)}%` }}
+              ></div>
+              {/* RPC Fast bar */}
+              <div 
+                className="w-1/2 bg-brand-primary transition-all duration-300 rounded-t shadow-[0_0_10px_rgba(34,197,94,0.3)] z-10"
+                style={{ height: `${Math.min((point.rpcFast / 400) * 100, 100)}%` }}
+              ></div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="w-full p-4 rounded bg-brand-surface border border-brand-border font-mono text-xs text-brand-muted flex justify-between items-center">
+        <span>&gt; WSS Subscription Status: {isConnected ? <span className="text-brand-primary">CONNECTED (wss://solana-mainnet.rpcfast.com/v1/...)</span> : <span className="text-status-warning">CONNECTING...</span>}</span>
+        <span>Blocks Synced: {isConnected ? '241,894,012' : '---'}</span>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,8 @@
 "use client";
 
+import { StatusBar } from "@/components/StatusBar";
+import { Footer } from "@/components/Footer";
+
 import { useState, useEffect } from "react";
 import { rpcFastService } from "@/lib/rpcfast";
 
@@ -41,6 +44,8 @@ export default function RpcDashboard() {
   const multiplier = (currentPublic / currentRpcFast).toFixed(1);
 
   return (
+    <>
+      <StatusBar />
     <div className="flex-grow flex flex-col items-center justify-center p-8 max-w-5xl mx-auto w-full space-y-8">
       
       <div className="text-center space-y-2">
@@ -121,5 +126,7 @@ export default function RpcDashboard() {
         <span>Blocks Synced: {isConnected ? '241,894,012' : '---'}</span>
       </div>
     </div>
+      <Footer />
+    </>
   );
 }

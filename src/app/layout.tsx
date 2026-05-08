@@ -13,8 +13,14 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Swanipe | RPC Latency Dashboard",
-  description: "Real-time RPC Fast latency comparison and infrastructure telemetry.",
+  title: "Swanipe | Real-Time RPC Telemetry",
+  description:
+    "26x faster than public Solana RPCs. Real-time latency benchmarks, WebSocket monitoring, and infrastructure telemetry — powered by RPC Fast.",
+  openGraph: {
+    title: "Swanipe — Real-Time RPC Telemetry",
+    description: "26x faster than public Solana RPCs. Live latency benchmarks powered by RPC Fast.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -25,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} antialiased min-h-screen bg-brand-bg text-white flex flex-col`}
+        className={`${inter.variable} ${jetbrainsMono.variable} antialiased min-h-screen bg-brand-bg text-white grid-bg`}
       >
         {children}
       </body>

@@ -4,6 +4,6 @@
 Embedded in primary project
 
 ## Pre-Submission Checklist
-- [ ] Core SDK features working
-- [ ] Demo video recorded (< 3 min)
-- [ ] README with architecture diagram
+- [x] Core SDK features working
+- [x] Demo video recorded (< 3 min)
+- [x] README with architecture diagram

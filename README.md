@@ -31,7 +31,16 @@ Primary project powered by RPC Fast. 26x faster than free RPCs.
 ## 🏗️ Architecture & Tech Stack
 We built the frontend using **Next.js 16** and **Tailwind CSS v4**.
 
-*(Check the architecture directory for detailed system diagrams)*
+
+```mermaid
+graph TD
+    A[User Wallet] -->|Input| B(Next.js App Router)
+    B -->|Execute| C{SDK Integration}
+    C -->|Return Result| D[Core Logic]
+    D -->|Process| E{Validation & Settlement}
+    E -->|Final State| F[Dashboard UI]
+```
+
 See the [Architecture Document](docs/ARCHITECTURE.md) and [Product Requirements Document](docs/PRD.md) for full system specifications.
 
 ## 🏆 Sponsor Tracks Targeted

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ParticleBackground } from "@/components/ParticleBackground";
 import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 
 interface DataPoint {
   time: number;
@@ -37,7 +37,7 @@ function generateLatency(base: number, variance: number): number {
   return Math.max(5, Math.round(base + (Math.random() - 0.5) * variance));
 }
 
-const containerVars = {
+const containerVars: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -45,7 +45,7 @@ const containerVars = {
   }
 };
 
-const itemVars = {
+const itemVars: Variants = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
 };

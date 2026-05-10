@@ -1,0 +1,29 @@
+
+> swanipe@0.1.0 ci
+> npm run lint && npm run typecheck && npm run test:coverage
+
+
+> swanipe@0.1.0 lint
+> eslint .
+
+
+/Users/edycu/Projects/Hackathon/Frontier/frontier-rpcfast/coverage/block-navigation.js
+  1:1  warning  Unused eslint-disable directive (no problems were reported)
+
+/Users/edycu/Projects/Hackathon/Frontier/frontier-rpcfast/src/app/about/page.tsx
+  30:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/Users/edycu/Projects/Hackathon/Frontier/frontier-rpcfast/src/app/dashboard/page.tsx
+  100:13  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/Users/edycu/Projects/Hackathon/Frontier/frontier-rpcfast/src/app/page.tsx
+  101:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+✖ 4 problems (0 errors, 4 warnings)
+  0 errors and 1 warning potentially fixable with the `--fix` option.
+
+
+> swanipe@0.1.0 typecheck
+> tsc --noEmit
+
+src/app/layout.tsx(28,3): error TS1117: An object literal cannot have multiple properties with the same name.

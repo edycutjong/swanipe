@@ -1,0 +1,40 @@
+
+> swanipe@0.1.0 ci
+> npm run lint && npm run typecheck && npm run test:coverage
+
+
+> swanipe@0.1.0 lint
+> eslint .
+
+
+/Users/edycu/Projects/Hackathon/Frontier/frontier-rpcfast/coverage/block-navigation.js
+  1:1  warning  Unused eslint-disable directive (no problems were reported)
+
+/Users/edycu/Projects/Hackathon/Frontier/frontier-rpcfast/src/app/about/page.tsx
+  30:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/Users/edycu/Projects/Hackathon/Frontier/frontier-rpcfast/src/app/dashboard/page.tsx
+  100:13  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/Users/edycu/Projects/Hackathon/Frontier/frontier-rpcfast/src/app/page.tsx
+   90:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/edycu/Projects/Hackathon/Frontier/frontier-rpcfast/src/app/page.tsx:90:5
+  88 |
+  89 |   useEffect(() => {
+> 90 |     setMounted(true);
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  91 |   }, []);
+  92 |
+  93 |   return (  react-hooks/set-state-in-effect
+  100:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @next/next/no-img-element
+
+✖ 5 problems (1 error, 4 warnings)
+  0 errors and 1 warning potentially fixable with the `--fix` option.
+

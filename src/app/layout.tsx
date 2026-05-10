@@ -16,10 +16,22 @@ export const metadata: Metadata = {
   title: "Swanipe | Real-Time RPC Telemetry",
   description:
     "26x faster than public Solana RPCs. Real-time latency benchmarks, WebSocket monitoring, and infrastructure telemetry — powered by RPC Fast.",
+  icons: {
+    icon: "/icon.svg",
+    apple: "/apple-icon.png",
+  },
   openGraph: {
     title: "Swanipe — Real-Time RPC Telemetry",
     description: "26x faster than public Solana RPCs. Live latency benchmarks powered by RPC Fast.",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Swanipe | Real-Time RPC Telemetry",
+      },
+    ],
   },
 };
 

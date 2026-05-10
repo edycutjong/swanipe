@@ -5,10 +5,10 @@
   
   <br/>
   
-  [![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen.svg)](https://swanipe.edycu.dev)
-  [![Pitch Deck](https://img.shields.io/badge/Pitch-Deck-f59e0b.svg)](https://swanipe.edycu.dev/pitch)
-  [![Pitch Video](https://img.shields.io/badge/Pitch-Video-red.svg)](https://youtube.com/your-video)
-  [![Superteam Earn](https://img.shields.io/badge/Superteam-Earn_Listing-blue.svg)](https://superteam.fun/earn/listing/dollar10000-in-rpc-infrastructure-credits-for-colosseum-frontier-hackathon)
+  [![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen.svg?style=for-the-badge)](https://swanipe.edycu.dev)
+  [![Pitch Deck](https://img.shields.io/badge/Pitch-Deck-f59e0b.svg?style=for-the-badge)](https://swanipe.edycu.dev/pitch)
+  [![Pitch Video](https://img.shields.io/badge/Pitch-Video-red.svg?style=for-the-badge)](https://youtube.com/your-video)
+  [![Superteam Earn](https://img.shields.io/badge/Superteam-Earn_Listing-blue.svg?style=for-the-badge)](https://superteam.fun/earn/listing/dollar10000-in-rpc-infrastructure-credits-for-colosseum-frontier-hackathon)
 
   <br/>
 
@@ -17,7 +17,7 @@
   ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
   ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)
   ![RPC Fast](https://img.shields.io/badge/RPC_Fast-000000?style=flat&logo=solana&logoColor=white)
-  ![Vitest](https://img.shields.io/badge/Vitest-FCC72B?style=flat&logo=vitest&logoColor=white)
+  [![Swanipe CI](https://github.com/edycutjong/swanipe/actions/workflows/ci.yml/badge.svg)](https://github.com/edycutjong/swanipe/actions/workflows/ci.yml)
 </div>
 
 ---
@@ -76,8 +76,8 @@ For a detailed breakdown of our system architecture and data flow, please refer 
 4. **Run the app:** `npm run dev`
 
 > **Note for Judges:** 
-> Detailed submission materials, demo scripts, and sponsor defenses are located in the `docs/` directory.
-> Read `docs/SUBMISSION.md` for the complete pitch and `docs/SPONSOR_DEFENSE.md` for technical implementation details.
+> Detailed demo scripts and sponsor defenses are located in the `docs/` directory.
+> Read `docs/SPONSOR_DEFENSE.md` for technical implementation details.
 
 ---
 

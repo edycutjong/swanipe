@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ParticleBackground } from "@/components/ParticleBackground";
 import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface DataPoint {
   time: number;
@@ -35,6 +36,19 @@ function generateHistogram(data: DataPoint[]): HistogramEntry[] {
 function generateLatency(base: number, variance: number): number {
   return Math.max(5, Math.round(base + (Math.random() - 0.5) * variance));
 }
+
+const containerVars = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+};
+
+const itemVars = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
+};
 
 export default function DashboardPage() {
   const [dataPoints, setDataPoints] = useState<DataPoint[]>(() =>
@@ -97,7 +111,8 @@ export default function DashboardPage() {
       <div className="relative z-10 flex items-center justify-between bg-brand-surface/80 backdrop-blur border-b border-brand-border px-4 py-2.5 text-xs font-mono">
         <div className="flex items-center gap-4">
           <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <img src="/icon.png" alt="Swanipe Logo" className="w-6 h-6 rounded shadow-lg shadow-brand-primary/20 object-cover" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/icon.svg" alt="Swanipe Logo" className="w-6 h-6 rounded shadow-lg shadow-brand-primary/20 object-cover" />
             <span className="font-bold text-sm text-white">Swanipe</span>
           </Link>
           <span className="text-brand-border">│</span>
@@ -141,52 +156,52 @@ export default function DashboardPage() {
         </div>
 
         {/* Metric Cards */}
-        <div className="grid md:grid-cols-4 gap-4">
+        <motion.div variants={containerVars} initial="hidden" animate="show" className="grid md:grid-cols-4 gap-4">
           {/* RPC Fast Latency */}
-          <div className="glass-panel-hover p-5 rounded-xl border-l-4 border-l-brand-primary relative overflow-hidden">
+          <motion.div variants={itemVars} className="glass-panel-hover p-5 rounded-xl border-l-4 border-l-brand-primary relative overflow-hidden">
             <div className="absolute top-0 right-0 w-20 h-20 bg-brand-primary/5 rounded-bl-full" />
             <div className="text-xs font-mono text-brand-muted uppercase tracking-widest mb-2">RPC Fast p50</div>
             <div className="text-4xl font-bold font-mono neon-text text-brand-primary">
               {isConnected ? `${latest.rpcFast}ms` : "--"}
             </div>
             <div className="text-xs text-brand-primary/60 font-mono mt-1">avg: {avgRpcFast}ms • p95: {p95Rpc}ms</div>
-          </div>
+          </motion.div>
 
           {/* Speed Advantage */}
-          <div className="glass-panel-hover p-5 rounded-xl relative overflow-hidden">
+          <motion.div variants={itemVars} className="glass-panel-hover p-5 rounded-xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-20 h-20 bg-white/5 rounded-bl-full" />
             <div className="text-xs font-mono text-brand-muted uppercase tracking-widest mb-2">Speed Advantage</div>
             <div className="text-4xl font-bold text-white">
               {isConnected ? `${multiplier}x` : "--"}
             </div>
             <div className="text-xs text-brand-muted font-mono mt-1">faster than public</div>
-          </div>
+          </motion.div>
 
           {/* Public RPC Latency */}
-          <div className="glass-panel-hover p-5 rounded-xl border-l-4 border-l-status-error/50 relative overflow-hidden">
+          <motion.div variants={itemVars} className="glass-panel-hover p-5 rounded-xl border-l-4 border-l-status-error/50 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-20 h-20 bg-status-error/5 rounded-bl-full" />
             <div className="text-xs font-mono text-brand-muted uppercase tracking-widest mb-2">Public RPC p50</div>
             <div className="text-4xl font-bold text-status-error/80 font-mono">
               {isConnected ? `${latest.publicNode}ms` : "--"}
             </div>
             <div className="text-xs text-status-error/50 font-mono mt-1">avg: {avgPublic}ms • p95: {p95Public}ms</div>
-          </div>
+          </motion.div>
 
           {/* WebSocket Status */}
-          <div className="glass-panel-hover p-5 rounded-xl border-l-4 border-l-brand-cyan/50 relative overflow-hidden">
+          <motion.div variants={itemVars} className="glass-panel-hover p-5 rounded-xl border-l-4 border-l-brand-cyan/50 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-20 h-20 bg-brand-cyan/5 rounded-bl-full" />
             <div className="text-xs font-mono text-brand-muted uppercase tracking-widest mb-2">WebSocket</div>
             <div className="text-4xl font-bold neon-text-cyan text-brand-cyan font-mono">
               {isConnected ? "LIVE" : "--"}
             </div>
             <div className="text-xs text-brand-cyan/60 font-mono mt-1">wss://rpcfast.com/v1</div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Charts Row */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <motion.div variants={containerVars} initial="hidden" animate="show" className="grid md:grid-cols-3 gap-6">
           {/* Main Latency Chart */}
-          <div className="md:col-span-2 glass-panel p-6 rounded-xl">
+          <motion.div variants={itemVars} className="md:col-span-2 glass-panel p-6 rounded-xl">
             <h3 className="text-sm font-bold uppercase tracking-widest text-brand-muted mb-4 flex justify-between items-center">
               <span>Real-time Ping Comparison</span>
               <span className="flex gap-4 text-xs font-normal">
@@ -224,10 +239,10 @@ export default function DashboardPage() {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Histogram */}
-          <div className="glass-panel p-6 rounded-xl">
+          <motion.div variants={itemVars} className="glass-panel p-6 rounded-xl">
             <h3 className="text-sm font-bold uppercase tracking-widest text-brand-muted mb-4">
               Latency Distribution
             </h3>
@@ -254,34 +269,36 @@ export default function DashboardPage() {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Bottom Row */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <motion.div variants={containerVars} initial="hidden" animate="show" className="grid md:grid-cols-2 gap-6">
           {/* Connection Log */}
-          <div className="glass-panel p-6 rounded-xl">
+          <motion.div variants={itemVars} className="glass-panel p-6 rounded-xl">
             <h3 className="text-sm font-bold uppercase tracking-widest text-brand-muted mb-4">
               Connection Log
             </h3>
             <div className="space-y-2 font-mono text-xs max-h-40 overflow-y-auto">
+              <AnimatePresence>
               {isConnected && (
                 <>
-                  <LogLine severity="info" text="WSS handshake complete — port 443" />
-                  <LogLine severity="success" text={`RPC Fast latency: ${latest.rpcFast}ms (p50: ${avgRpcFast}ms)`} />
-                  <LogLine severity="warn" text={`Public RPC latency: ${latest.publicNode}ms (p50: ${avgPublic}ms)`} />
-                  <LogLine severity="info" text={`Speed advantage: ${multiplier}x`} />
-                  <LogLine severity="success" text={`Block height: ${blockHeight.toLocaleString()}`} />
-                  <LogLine severity="info" text="Subscription: slotSubscribe active" />
-                  <LogLine severity="info" text={`Total ping cycles: ${totalPings}`} />
+                  <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}><LogLine severity="info" text="WSS handshake complete — port 443" /></motion.div>
+                  <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}><LogLine severity="success" text={`RPC Fast latency: ${latest.rpcFast}ms (p50: ${avgRpcFast}ms)`} /></motion.div>
+                  <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}><LogLine severity="warn" text={`Public RPC latency: ${latest.publicNode}ms (p50: ${avgPublic}ms)`} /></motion.div>
+                  <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}><LogLine severity="info" text={`Speed advantage: ${multiplier}x`} /></motion.div>
+                  <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}><LogLine severity="success" text={`Block height: ${blockHeight.toLocaleString()}`} /></motion.div>
+                  <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}><LogLine severity="info" text="Subscription: slotSubscribe active" /></motion.div>
+                  <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}><LogLine severity="info" text={`Total ping cycles: ${totalPings}`} /></motion.div>
                 </>
               )}
-              {!isConnected && <LogLine severity="warn" text="Establishing WSS connection..." />}
+              {!isConnected && <motion.div exit={{ opacity: 0 }}><LogLine severity="warn" text="Establishing WSS connection..." /></motion.div>}
+              </AnimatePresence>
             </div>
-          </div>
+          </motion.div>
 
           {/* Benchmark Summary */}
-          <div className="glass-panel p-6 rounded-xl">
+          <motion.div variants={itemVars} className="glass-panel p-6 rounded-xl">
             <h3 className="text-sm font-bold uppercase tracking-widest text-brand-muted mb-4">
               Benchmark Summary
             </h3>
@@ -305,11 +322,16 @@ export default function DashboardPage() {
                 wss://solana-mainnet.rpcfast.com/v1/...
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* WSS Status Bar */}
-        <div className="glass-panel rounded-lg p-3 font-mono text-xs flex justify-between items-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+          className="glass-panel rounded-lg p-3 font-mono text-xs flex justify-between items-center"
+        >
           <span className="text-brand-muted">
             &gt; WSS Status:{" "}
             {isConnected ? (
@@ -321,7 +343,7 @@ export default function DashboardPage() {
           <span className="text-brand-muted">
             Blocks: <span className="text-brand-cyan">{isConnected ? blockHeight.toLocaleString() : "---"}</span>
           </span>
-        </div>
+        </motion.div>
       </main>
 
       {/* Footer */}

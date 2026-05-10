@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ParticleBackground } from "@/components/ParticleBackground";
+import { Zap, BarChart3, Radio, TrendingUp, Layers, Trophy } from "lucide-react";
 
 const TECH_STACK = [
   { name: "Next.js 16", color: "text-white", desc: "App Router with RSC" },
@@ -27,7 +28,8 @@ export default function AboutPage() {
       {/* Nav */}
       <nav className="relative z-10 flex items-center justify-between px-6 py-4 border-b border-brand-border/30">
         <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <img src="/icon.png" alt="Swanipe Logo" className="w-8 h-8 rounded-lg shadow-lg shadow-brand-primary/20 object-cover" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/icon.svg" alt="Swanipe Logo" className="w-8 h-8 rounded-lg shadow-lg shadow-brand-primary/20 object-cover" />
           <span className="font-bold text-lg tracking-tight">Swanipe</span>
         </Link>
         <div className="flex items-center gap-4">
@@ -55,8 +57,8 @@ export default function AboutPage() {
 
           {/* What It Does */}
           <div className="glass-panel rounded-xl p-8 space-y-4">
-            <h2 className="text-sm font-bold text-brand-primary tracking-widest uppercase font-mono">
-              ⚡ What It Does
+            <h2 className="text-sm font-bold text-brand-primary tracking-widest uppercase font-mono flex items-center gap-2">
+              <Zap className="w-4 h-4" /> What It Does
             </h2>
             <p className="text-brand-muted leading-relaxed">
               Swanipe provides a real-time, side-by-side comparison of RPC endpoint performance.
@@ -66,12 +68,12 @@ export default function AboutPage() {
             </p>
             <div className="grid grid-cols-3 gap-4 pt-4">
               {[
-                { icon: "📊", label: "Live Benchmarks", desc: "Real-time ping comparison" },
-                { icon: "📡", label: "WSS Monitoring", desc: "WebSocket health tracking" },
-                { icon: "⚡", label: "Sub-50ms", desc: "Premium endpoint speed" },
+                { icon: <BarChart3 className="w-6 h-6 text-brand-cyan mx-auto" />, label: "Live Benchmarks", desc: "Real-time ping comparison" },
+                { icon: <Radio className="w-6 h-6 text-sky-400 mx-auto" />, label: "WSS Monitoring", desc: "WebSocket health tracking" },
+                { icon: <Zap className="w-6 h-6 text-brand-primary mx-auto" />, label: "Sub-50ms", desc: "Premium endpoint speed" },
               ].map((item) => (
                 <div key={item.label} className="text-center p-4 rounded-lg bg-brand-surface/50 border border-brand-border/30">
-                  <div className="text-2xl mb-2">{item.icon}</div>
+                  <div className="mb-2">{item.icon}</div>
                   <div className="text-sm font-bold text-white">{item.label}</div>
                   <div className="text-xs text-brand-muted mt-1">{item.desc}</div>
                 </div>
@@ -81,8 +83,8 @@ export default function AboutPage() {
 
           {/* Benchmark Table */}
           <div className="glass-panel rounded-xl p-8 space-y-4">
-            <h2 className="text-sm font-bold text-brand-cyan tracking-widest uppercase font-mono">
-              📈 Benchmark Results
+            <h2 className="text-sm font-bold text-brand-cyan tracking-widest uppercase font-mono flex items-center gap-2">
+              <TrendingUp className="w-4 h-4" /> Benchmark Results
             </h2>
             <div className="overflow-x-auto">
               <table className="w-full text-sm font-mono">
@@ -110,8 +112,8 @@ export default function AboutPage() {
 
           {/* Tech Stack */}
           <div className="glass-panel rounded-xl p-8 space-y-4">
-            <h2 className="text-sm font-bold text-brand-muted tracking-widest uppercase font-mono">
-              🏗️ Tech Stack
+            <h2 className="text-sm font-bold text-brand-muted tracking-widest uppercase font-mono flex items-center gap-2">
+              <Layers className="w-4 h-4" /> Tech Stack
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {TECH_STACK.map((tech) => (
@@ -128,8 +130,8 @@ export default function AboutPage() {
 
           {/* Hackathon */}
           <div className="glass-panel rounded-xl p-8 space-y-4 neon-border">
-            <h2 className="text-sm font-bold text-brand-primary tracking-widest uppercase font-mono">
-              🏆 Hackathon
+            <h2 className="text-sm font-bold text-brand-primary tracking-widest uppercase font-mono flex items-center gap-2">
+              <Trophy className="w-4 h-4" /> Hackathon
             </h2>
             <p className="text-brand-muted">
               Built for{" "}
@@ -139,7 +141,7 @@ export default function AboutPage() {
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <a
-                href="https://github.com/edycutjong/frontier-rpcfast"
+                href="https://github.com/edycutjong/swanipe"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-xs font-mono px-4 py-2 rounded-lg border border-brand-border bg-brand-surface hover:border-brand-primary/50 transition-colors text-brand-muted hover:text-white"

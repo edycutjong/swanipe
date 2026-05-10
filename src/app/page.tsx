@@ -87,17 +87,19 @@ export default function LandingPage() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const t = setTimeout(() => setMounted(true), 0);
+    return () => clearTimeout(t);
   }, []);
 
   return (
     <div className="relative min-h-screen flex flex-col">
       <ParticleBackground />
-      
+
       {/* Nav */}
       <nav className="relative z-10 flex items-center justify-between px-6 py-4 border-b border-brand-border/30">
         <div className="flex items-center gap-3">
-          <img src="/icon.png" alt="Swanipe Logo" className="w-8 h-8 rounded-lg shadow-lg shadow-brand-primary/20 object-cover" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/icon.svg" alt="Swanipe Logo" className="w-8 h-8 rounded-lg shadow-lg shadow-brand-primary/20 object-cover" />
           <span className="font-bold text-lg tracking-tight">Swanipe</span>
           <span className="text-xs font-mono text-brand-muted bg-brand-surface px-2 py-0.5 rounded border border-brand-border">v1.0</span>
         </div>
@@ -180,7 +182,7 @@ export default function LandingPage() {
               <div className="absolute inset-0 rounded-xl animate-pulse-glow pointer-events-none" />
             </Link>
             <a
-              href="https://github.com/edycutjong/frontier-rpcfast"
+              href="https://github.com/edycutjong/swanipe"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 border border-brand-border hover:border-brand-muted text-brand-muted hover:text-white font-mono px-6 py-3.5 rounded-xl transition-all text-sm"

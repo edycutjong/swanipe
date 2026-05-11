@@ -7,7 +7,7 @@
   
   [![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen.svg?style=for-the-badge)](https://swanipe.edycu.dev)
   [![Pitch Deck](https://img.shields.io/badge/Pitch-Deck-f59e0b.svg?style=for-the-badge)](https://swanipe.edycu.dev/pitch)
-  [![Pitch Video](https://img.shields.io/badge/Pitch-Video-red.svg?style=for-the-badge)](https://youtube.com/your-video)
+  [![Pitch Video](https://img.shields.io/badge/Pitch-Video-red.svg?style=for-the-badge)](https://youtu.be/2ou0vdUkYu8)
   [![Superteam Earn](https://img.shields.io/badge/Superteam-Earn_Listing-blue.svg?style=for-the-badge)](https://superteam.fun/earn/listing/dollar10000-in-rpc-infrastructure-credits-for-colosseum-frontier-hackathon)
 
   <br/>
@@ -25,7 +25,7 @@
 ## 📸 See it in Action
 *(Demo GIF and UI screenshots can be found in the `docs/assets` directory)*
 
-[**▶️ Watch the Demo Video**](https://youtube.com/your-video)
+[**▶️ Watch the Demo Video**](https://youtu.be/2ou0vdUkYu8)
 
 <div align="center">
   <img src="public/og-image.png" alt="App Demo" width="100%">
